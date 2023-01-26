@@ -14,7 +14,18 @@ const CanvasAnimation = () => {
 		const imageFrame = Math.ceil(frameCount / 100 * progress);	
 		console.log(imageFrame)
 		imageRef.current.src = `/composition/Lautissimi 2_${ imageFrame.toString().padStart(5, 0) }.jpg`;
-	}
+	};
+
+	const preloadImages = () => {
+		for (let i = 0; i < 375; i++) {
+			const img = new Image();
+			img.src = `/composition/Lautissimi 2_${ i.toString().padStart(5, 0) }.jpg`;
+		};
+	};
+
+	useEffect(() => {
+		preloadImages();
+	}, [])
 
 	useEffect(() => {
 		const motion = gsap.to(imageRef.current, { 
