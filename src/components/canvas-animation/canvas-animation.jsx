@@ -10,9 +10,11 @@ const CanvasAnimation = () => {
 
 	const updateImage = (animation) => {
 		const frameCount = 375;
-		const progress = Math.ceil(animation.progress * 100)
-		const imageFrame = Math.ceil(frameCount / 100 * progress);	
+		const progress = Math.ceil(animation.progress * 1000)
+		const imageFrame = Math.ceil(frameCount / 1000 * progress);	
 		console.log(imageFrame)
+		// console.log(progress);
+		
 		imageRef.current.src = `/composition/Lautissimi 2_${ imageFrame.toString().padStart(5, 0) }.jpg`;
 	};
 
@@ -34,7 +36,7 @@ const CanvasAnimation = () => {
 				pin: '.canvas-animation__image',
 				trigger: '.canvas-animation__image',
 				start: 'center center',
-				end: '1500% top',
+				end: '500% top',
 				markers: true,
 				onUpdate: (animation) => updateImage(animation),
 			}	
