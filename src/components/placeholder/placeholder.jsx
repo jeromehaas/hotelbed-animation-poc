@@ -1,8 +1,7 @@
-const Placeholder = () => {
+const Placeholder = ({ color = 'black'}) => {
 	
-
 	return (
-		<div className='placeholder'></div>	
+		<div className={`placeholder placeholder--${ color }`}></div>	
 	);
 }
 

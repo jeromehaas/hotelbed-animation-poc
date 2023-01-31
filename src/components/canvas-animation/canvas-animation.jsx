@@ -6,14 +6,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const CanvasAnimation = () => {
 
-	const imageRef = useRef();
+	const options = {
+		ref: useRef(),
+		frameCount: 1125,
+		image: null,
+	};
 
 	const updateImage = (animation) => {
-		const frameCount = 1125;
+		const frameCount = options.frameCount;
 		const progress = Math.ceil(animation.progress * 5000)
 		const index = Math.ceil(frameCount / 5000 * progress);	
-		console.log(index);
-		imageRef.current.src = getFrameByIndex(index); 
+		requestAnimationFrame(() => {
+			options.image.src = getFrameByIndex(index);
+			options.ref.current.getContext('2d').drawImage(options.image, 0, 0, options.ref.current.width, options.ref.current.height);
+		})
 	};
 
 	const getFrameByIndex = (index) => {
@@ -21,24 +27,36 @@ const CanvasAnimation = () => {
 	};
 
 	const preloadImages = () => {
-		for (let index = 0; index < 375; index++) {
-			const img = new Image();
-			img.src = getFrameByIndex(index);
+		for (let index = 0; index < options.frameCount; index++) {
+			options.image = new Image();
+			options.image.src = getFrameByIndex(index);
 		};
 	};
 
-	useEffect(() => {
+	const initImages = () => {
+		options.image = new Image();
+		options.image.src = getFrameByIndex(0);
+		options.image.onload = () => options.ref.current.getContext('2d').drawImage(options.image, 0, 0, options.ref.current.width, options.ref.current.height);
+	};
+
+	const init = () => {
 		preloadImages();
-	}, []);
+		initImages();
+	};
 
 	useEffect(() => {
-		const motion = gsap.to(imageRef.current, { 
+		init();
+	}, []);
+
+
+	useEffect(() => {
+		const motion = gsap.to(options.ref.current, { 
 			scrollTrigger: {
 				scrub: true,
 				pin: '.canvas-animation__image',
 				trigger: '.canvas-animation__image',
 				start: 'center center',
-				end: '500% top',
+				end: '250% center',
 				markers: true,
 				onUpdate: (animation) => updateImage(animation),
 			}	
@@ -50,7 +68,7 @@ const CanvasAnimation = () => {
 	
 	return (
 		<div className="canvas-animation">
-			<img className="canvas-animation__image" ref={ imageRef } src="/composition/Lautissimi 2_00001.jpg" alt="Composition" />
+			<canvas className="canvas-animation__image" ref={ options.ref } width="1080" height="810"></canvas>
 		</div>
 
 	);
