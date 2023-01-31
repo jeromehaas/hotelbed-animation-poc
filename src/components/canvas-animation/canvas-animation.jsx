@@ -56,7 +56,7 @@ const CanvasAnimation = () => {
 				pin: '.canvas-animation__image',
 				trigger: '.canvas-animation__image',
 				start: 'center center',
-				end: '250% center',
+				end: '500% center',
 				markers: true,
 				onUpdate: (animation) => updateImage(animation),
 			}	
