@@ -9,25 +9,27 @@ const CanvasAnimation = () => {
 	const imageRef = useRef();
 
 	const updateImage = (animation) => {
-		const frameCount = 375;
-		const progress = Math.ceil(animation.progress * 1000)
-		const imageFrame = Math.ceil(frameCount / 1000 * progress);	
-		console.log(imageFrame)
-		// console.log(progress);
-		
-		imageRef.current.src = `/composition/Lautissimi 2_${ imageFrame.toString().padStart(5, 0) }.jpg`;
+		const frameCount = 1125;
+		const progress = Math.ceil(animation.progress * 5000)
+		const index = Math.ceil(frameCount / 5000 * progress);	
+		console.log(index);
+		imageRef.current.src = getFrameByIndex(index); 
+	};
+
+	const getFrameByIndex = (index) => {
+		return `/composition/Lautissimi 2_${ index.toString().padStart(5, 0) }.jpg`
 	};
 
 	const preloadImages = () => {
-		for (let i = 0; i < 375; i++) {
+		for (let index = 0; index < 375; index++) {
 			const img = new Image();
-			img.src = `/composition/Lautissimi 2_${ i.toString().padStart(5, 0) }.jpg`;
+			img.src = getFrameByIndex(index);
 		};
 	};
 
 	useEffect(() => {
 		preloadImages();
-	}, [])
+	}, []);
 
 	useEffect(() => {
 		const motion = gsap.to(imageRef.current, { 
