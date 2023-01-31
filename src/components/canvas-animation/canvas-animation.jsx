@@ -33,8 +33,8 @@ const CanvasAnimation = () => {
 				scrub: true,
 				pin: '.canvas-animation__image',
 				trigger: '.canvas-animation__image',
-				start: 'top top',
-				end: 'bottom top',
+				start: 'center center',
+				end: '1500% top',
 				markers: true,
 				onUpdate: (animation) => updateImage(animation),
 			}	
