@@ -8,7 +8,7 @@ const CanvasAnimation = () => {
 
 	const options = {
 		ref: useRef(),
-		frameCount: 1125,
+		frameCount: 140,
 		image: null,
 	};
 
@@ -23,7 +23,9 @@ const CanvasAnimation = () => {
 	};
 
 	const getFrameByIndex = (index) => {
-		return `/composition/Lautissimi 2_${ index.toString().padStart(5, 0) }.jpg`
+		// return `/composition/Lautissimi 2_${ index.toString().padStart(5, 0) }.jpg`
+		// return `/composition/Lautissimi 2_${ index.toString().padStart(5, 0) }.jpg`
+		return `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${index.toString().padStart(4, '0')}.jpg`;
 	};
 
 	const preloadImages = () => {
